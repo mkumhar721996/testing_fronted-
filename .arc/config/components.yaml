@@ -1,0 +1,26 @@
+version: 2
+components:
+  comp_web_app:
+    name: Web App
+    repo_ref: conn-github-b7b8e709e0ca422699b5a6c047ebb105
+    kind: web_ui
+    integrations:
+    - to: comp_backend_api
+      interaction: sync
+      via: http
+      status: planned
+      evidence: one backend API
+      label: HTTPS/JSON
+    - to: comp_identity_provider
+      interaction: sync
+      via: http
+      auth:
+        scheme: oidc
+        idp: comp_identity_provider
+      status: planned
+      evidence: Sign-in only, with a managed identity provider
+      label: Sign-in redirect
+    zone: client
+    rule: All user-facing browser UI lives in the Web App component and is not mixed
+      into server-side code.
+    adr: ADR-0001
