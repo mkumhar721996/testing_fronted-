@@ -1,1 +1,25 @@
 @import "tailwindcss";
+@import "../design/tokens.css";
+@import "../design/prototype-utils.css";
+
+/* Page rules from the approved Job openings / New job opening design. Tokens only. */
+.col-num { text-align: right; }
+.row-actions { display: flex; justify-content: flex-end; }
+.table tr[data-new="true"] td { background: var(--color-primary-soft); }
+.meta-line { color: var(--color-fg-muted); font-size: var(--font-size-sm); }
+.readonly-status { display: flex; align-items: center; gap: var(--space-1); }
+.modal-backdrop { position: fixed; inset: 0; background: var(--color-shadow); opacity: .5; z-index: var(--z-overlay); }
+.modal-centered { width: min(100% - var(--space-4), var(--container-sm)); }
+.toast { right: auto; bottom: var(--space-6); left: 50%; transform: translateX(-50%); }
+.table-wrap { overflow-x: auto; max-width: 100%; }
+@media (max-width: 640px) {
+  .table thead { display: none; }
+  .table, .table tbody, .table tr, .table td { display: block; width: 100%; }
+  .table tr { padding: var(--space-1) 0; border-bottom: var(--border-width) solid var(--color-border); }
+  .table td { border: 0; padding: var(--space-1) var(--space-2); text-align: left; overflow-wrap: anywhere; }
+  .table td[data-label]::before { content: attr(data-label) ": "; color: var(--color-fg-muted); }
+  .row-actions { justify-content: flex-start; }
+}
+.form-actions { flex-wrap: wrap; }
+.form-actions .btn { max-width: 100%; white-space: normal; }
+.skel-row { height: var(--density-row-height); margin-bottom: var(--space-1); }
