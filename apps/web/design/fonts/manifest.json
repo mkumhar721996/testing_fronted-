@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "files-to-be-vendored",
+  "families": [
+    {
+      "id": "inter",
+      "name": "Inter",
+      "css_stack": "\"Inter\", system-ui, -apple-system, \"Segoe UI\", \"Roboto\", sans-serif",
+      "roles": [
+        "heading",
+        "body"
+      ],
+      "licence": "OFL-1.1",
+      "licence_verified": false,
+      "system": false,
+      "files": [
+        {
+          "path": "fonts/inter-400.woff2",
+          "weight": "400",
+          "vendored": false
+        },
+        {
+          "path": "fonts/inter-600.woff2",
+          "weight": "600",
+          "vendored": false
+        }
+      ]
+    },
+    {
+      "id": "jetbrains-mono",
+      "name": "JetBrains Mono",
+      "css_stack": "\"JetBrains Mono\", ui-monospace, \"Menlo\", \"Consolas\", monospace",
+      "roles": [
+        "mono"
+      ],
+      "licence": "OFL-1.1",
+      "licence_verified": false,
+      "system": false,
+      "files": [
+        {
+          "path": "fonts/jetbrains-mono-400.woff2",
+          "weight": "400",
+          "vendored": false
+        }
+      ]
+    }
+  ]
+}

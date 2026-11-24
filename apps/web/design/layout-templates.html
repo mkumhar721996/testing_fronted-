@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="prototype-utils.css">
+<title>Layout templates</title>
+<style>
+.tpl-page { max-width: var(--container-xl); margin-inline: auto; padding: var(--page-gutter); display: flex; flex-direction: column; gap: var(--section-gap); }
+.tpl { display: flex; flex-direction: column; gap: var(--space-3); }
+.tpl-frame { border: var(--border-width) solid var(--color-border-default); border-radius: var(--radius-card); background: var(--color-bg); padding: var(--page-gutter); overflow: hidden; }
+.tpl-chart { min-height: calc(var(--space-10) * 2); }
+.tpl-search { max-width: 16rem; }
+.tpl-frame .page { padding-block: 0; }
+</style>
+</head>
+<body>
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Home</title><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9.5 21v-6h5v6"/></symbol>
+<symbol id="i-kanban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Board</title><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 7v8M15 7v4"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Done</title><circle cx="12" cy="12" r="10"/><path d="m8 12.2 2.8 2.8 5.2-5.6"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Calendar</title><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Assignee</title><circle cx="12" cy="8" r="4"/><path d="M4 21v-1c0-3.3 3.6-6 8-6s8 2.7 8 6v1z"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Team</title><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-1c0-2.8 2.9-5 6.5-5s6.5 2.2 6.5 5v1z"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.5c1.8.7 3 2.1 3 4.5v1"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Alerts</title><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 8 2.5 8h-17S6 15 6 9z"/><path d="M10 21h4"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Search</title><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Settings</title><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Create</title><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Filter</title><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Priority</title><path d="M5 4h12l-2 4 2 4H5z"/><path d="M5 3v18"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Due</title><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Label</title><path d="M3 3h8.5L21 12.5 12.5 21 3 11.5z"/><circle cx="7.5" cy="7.5" r="1.2"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Comment</title><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4V5a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h5"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Delete</title><path d="M5 7h14l-1 14H6z"/><path d="M3 7h18M9 7V4h6v3"/><path d="M10 11v6M14 11v6"/></symbol>
+</svg>
+<main class="tpl-page">
+<header class="stack stack-sm"><span class="eyebrow">Layout kit</span><h1>Page templates</h1><p class="lead">Shell: Sidebar app shell. A screen picks one template, chooses its columns and states, and never changes the shell, container widths, gutters, section gaps or breakpoints.</p></header>
+<section class="tpl" id="tpl-dashboard">
+<div><h2>Dashboard grid <span class="badge badge-primary">Default for this system</span></h2><p class="text-muted">Stat cards over a main chart and a side panel. Current in navigation: Overview.</p></div>
+<div class="tpl-frame"><div class="page"><header class="page-header"><div class="page-title"><span class="eyebrow">Overview</span><h2>Dashboard</h2></div><div class="page-actions"><button class="btn btn-secondary" type="button">Export</button><button class="btn btn-primary" type="button">New</button></div></header><div class="grid grid-4"><div class="card stat"><span class="stat-label">Open</span><span class="stat-value">128</span><span class="stat-delta">vs last week</span></div><div class="card stat"><span class="stat-label">Done</span><span class="stat-value">64</span><span class="stat-delta">vs last week</span></div><div class="card stat"><span class="stat-label">Late</span><span class="stat-value">7</span><span class="stat-delta">vs last week</span></div><div class="card stat"><span class="stat-label">Cycle</span><span class="stat-value">4d</span><span class="stat-delta">vs last week</span></div></div><div class="split"><div class="card"><div class="card-header"><h3>Activity</h3></div><div class="skeleton tpl-chart"></div></div><div class="card"><div class="card-header"><h3>Recent</h3></div><div class="stack stack-sm"><div class="list-row">Item</div><div class="list-row">Item</div><div class="list-row">Item</div></div></div></div></div></div>
+</section>
+<section class="tpl" id="tpl-kanban">
+<div><h2>Kanban board</h2><p class="text-muted">Status columns of draggable cards. Current in navigation: Boards.</p></div>
+<div class="tpl-frame"><div class="page"><header class="page-header"><div class="page-title"><span class="eyebrow">Boards</span><h2>Sprint board</h2></div><div class="page-actions"><button class="btn btn-secondary" type="button">Export</button><button class="btn btn-primary" type="button">New</button></div></header><div class="kanban"><div class="kanban-col"><h3>To do</h3><div class="card">Card</div><div class="card">Card</div></div><div class="kanban-col"><h3>In progress</h3><div class="card">Card</div><div class="card">Card</div></div><div class="kanban-col"><h3>Done</h3><div class="card">Card</div><div class="card">Card</div></div></div></div></div>
+</section>
+<section class="tpl" id="tpl-table">
+<div><h2>Data table</h2><p class="text-muted">Page header, toolbar and a dense sortable table. Current in navigation: My tasks.</p></div>
+<div class="tpl-frame"><div class="page"><header class="page-header"><div class="page-title"><span class="eyebrow">My tasks</span><h2>Tasks</h2></div><div class="page-actions"><button class="btn btn-secondary" type="button">Export</button><button class="btn btn-primary" type="button">New</button></div></header><div class="toolbar"><input class="input tpl-search" placeholder="Filter" aria-label="Filter"><div class="toolbar-spacer"></div><button class="btn btn-secondary btn-sm" type="button">Columns</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Name</th><th>Status</th><th class="num">Points</th></tr></thead><tbody><tr><td>Item name</td><td><span class="badge badge-success">Done</span></td><td class="num">12</td></tr>
+<tr><td>Item name</td><td><span class="badge badge-success">Done</span></td><td class="num">12</td></tr>
+<tr><td>Item name</td><td><span class="badge badge-success">Done</span></td><td class="num">12</td></tr>
+<tr><td>Item name</td><td><span class="badge badge-success">Done</span></td><td class="num">12</td></tr>
+<tr><td>Item name</td><td><span class="badge badge-success">Done</span></td><td class="num">12</td></tr></tbody></table></div><nav class="pagination" aria-label="Pages"><a class="page-link" href="#">1</a><a class="page-link" href="#" aria-current="page">2</a><a class="page-link" href="#">3</a></nav></div></div>
+</section>
+<section class="tpl" id="tpl-split">
+<div><h2>Split list-detail</h2><p class="text-muted">A list on the left, the selected record on the right. Current in navigation: My tasks.</p></div>
+<div class="tpl-frame"><div class="page"><header class="page-header"><div class="page-title"><span class="eyebrow">My tasks</span><h2>Task detail</h2></div></header><div class="master-detail"><div class="card card-flush"><div class="list-row">Item</div><div class="list-row">Item</div><div class="list-row">Item</div><div class="list-row">Item</div><div class="list-row">Item</div></div><div class="card"><div class="stack"><h3>Selected item</h3><p class="text-muted">Details of the selected record.</p><div class="skeleton tpl-chart"></div></div></div></div></div></div>
+</section>
+<section class="tpl" id="tpl-form">
+<div><h2>Form page</h2><p class="text-muted">Sectioned fields with a sticky action row. Current in navigation: Settings.</p></div>
+<div class="tpl-frame"><div class="page"><header class="page-header"><div class="page-title"><span class="eyebrow">Settings</span><h2>Profile</h2></div></header><div class="form-page"><div class="form-section"><div class="grid grid-2"><div class="field"><label for="f1">Name</label><input id="f1" class="input"></div><div class="field"><label for="f2">Email</label><input id="f2" class="input"></div></div><div class="field"><label for="f3">About</label><textarea id="f3" class="textarea"></textarea><span class="field-hint">A sentence or two.</span></div></div><div class="form-actions"><button class="btn btn-primary" type="button">Save</button><button class="btn btn-ghost" type="button">Cancel</button></div></div></div></div>
+</section>
+<section class="tpl" id="tpl-empty">
+<div><h2>Empty states</h2><p class="text-muted">First-use and no-results pages with one clear action. Current in navigation: Boards.</p></div>
+<div class="tpl-frame"><div class="page"><div class="empty-state"><svg class="icon" aria-hidden="true"><use href="#i-kanban"/></svg><h3>Nothing here yet</h3><p>Create the first board to start tracking work.</p><button class="btn btn-primary" type="button">Create board</button></div></div></div>
+</section>
+</main>
+</body>
+</html>

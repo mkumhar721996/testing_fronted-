@@ -1,0 +1,33 @@
+design_system:
+  dir: apps/web/design
+  contract_version: 2
+  choices:
+    schema_version: 1
+    contract_version: 2
+    fingerprint: a0b8f12f9e55b295fa6b962cf43d265f0775487523635cda40ea534136557a8d
+    direction: calm
+    overrides: []
+    palette: ocean
+    custom_accent: null
+    font_pairing: inter
+    type_scale: default
+    icon_set: outline
+    icon_size: 20
+    icon_stroke: 2.0
+    radius: md
+    elevation: soft
+    border: hair
+    density: comfortable
+    motion: subtle
+    shell: sidebar
+    page_template: dashboard
+    max_width_px: 1200
+    grid_unit_px: 8
+  assets:
+    tokens: tokens.css
+    prototype_utils: prototype-utils.css
+    ui_guidelines: UI-GUIDELINES.md
+    app_shell: app-shell.html
+    icons: icons.svg
+    fonts: fonts
+    layout_templates: layout-templates.html
