@@ -80,6 +80,12 @@ describe('NewOpeningPage', () => {
     expect(screen.getByLabelText('Job title')).toHaveValue('Product designer')
   })
 
+  it('shows an error when the permission check fails', async () => {
+    mockApi({ ...baseRoutes, 'GET /me': () => json({ error: 'boom' }, 500) })
+    renderPage()
+    expect(await screen.findByRole('alert')).toHaveTextContent('We could not check your permissions. Try again.')
+  })
+
   it('disables the form for non-HR users', async () => {
     mockApi({ ...baseRoutes, 'GET /me': () => json({ isHrAdmin: false }) })
     renderPage()

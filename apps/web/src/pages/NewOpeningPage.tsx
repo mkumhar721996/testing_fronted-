@@ -33,7 +33,7 @@ export default function NewOpeningPage({ onCreated, onCancel }: Props) {
   }
 
   useEffect(() => {
-    getMe().then((me) => setIsHrAdmin(me.isHrAdmin), () => {})
+    getMe().then((me) => setIsHrAdmin(me.isHrAdmin), () => setFailure('We could not check your permissions. Try again.'))
     listHiringManagers().then(setManagers, () => setFailure('We could not load the hiring managers. Try again.'))
   }, [])
 
