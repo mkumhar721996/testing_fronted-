@@ -11,6 +11,7 @@ components:
     ready_check:
       url: http://localhost:{port}/
     primary: true
+    install_command: cd apps/web && pnpm add {name}@{version}
 commands:
   test: cd apps/web && pnpm test
   build: cd apps/web && pnpm build
@@ -22,3 +23,5 @@ setup_command: cd apps/web && pnpm install --frozen-lockfile
 toolchain:
   node: '22'
   pnpm: 12.9.1
+package_install_commands:
+  pnpm: pnpm add {name}@{version}
