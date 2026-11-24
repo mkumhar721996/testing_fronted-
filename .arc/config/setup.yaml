@@ -1,0 +1,24 @@
+components:
+  comp_web_app:
+    mode: local
+    e2e_command: cd apps/web && pnpm e2e
+    test_command: cd apps/web && pnpm test
+    build_command: cd apps/web && pnpm build
+    start_command: cd apps/web && pnpm exec vite --host {host} --port {port} --strictPort
+    devloop_command: cd apps/web && pnpm devloop
+    port_env: COMP_WEB_APP_PORT
+    base_port: 5173
+    ready_check:
+      url: http://localhost:{port}/
+    primary: true
+commands:
+  test: cd apps/web && pnpm test
+  build: cd apps/web && pnpm build
+  devloop: cd apps/web && pnpm devloop
+ui_tests:
+  framework: playwright
+  command: cd apps/web && pnpm exec playwright test
+setup_command: cd apps/web && pnpm install --frozen-lockfile
+toolchain:
+  node: '22'
+  pnpm: 12.9.1
