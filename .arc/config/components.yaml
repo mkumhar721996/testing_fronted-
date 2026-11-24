@@ -4,6 +4,7 @@ components:
     name: Web App
     repo_ref: conn-github-b7b8e709e0ca422699b5a6c047ebb105
     kind: web_ui
+    directory: apps/web
     integrations:
     - to: comp_backend_api
       interaction: sync
@@ -24,3 +25,12 @@ components:
     rule: All user-facing browser UI lives in the Web App component and is not mixed
       into server-side code.
     adr: ADR-0001
+    stack:
+      choices:
+        styling: tailwind
+        language: typescript
+        framework: react + vite
+        package_manager: pnpm
+        testing_tool_e2e: playwright
+        testing_tool_unit: vitest
+      notes: database not applicable — calls Backend API only
