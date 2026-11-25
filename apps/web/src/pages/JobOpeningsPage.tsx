@@ -5,6 +5,7 @@ import PublishDialog from '../components/PublishDialog'
 
 interface Props {
   onNew: () => void
+  onEdit: (opening: JobOpening) => void
   onToast: (message: string) => void
   highlightId?: string
 }
@@ -21,7 +22,7 @@ const HEADER_COLUMNS = (
   </tr>
 )
 
-export default function JobOpeningsPage({ onNew, onToast, highlightId }: Props) {
+export default function JobOpeningsPage({ onNew, onEdit, onToast, highlightId }: Props) {
   const [load, setLoad] = useState<Load>({ state: 'loading' })
   const [publishing, setPublishing] = useState<JobOpening | null>(null)
 
@@ -100,7 +101,7 @@ export default function JobOpeningsPage({ onNew, onToast, highlightId }: Props) 
             ) : (
               <div className="alert alert-warning" role="status">
                 <Icon name="user" />
-                <span>Only HR admins can create or publish job openings. Ask an HR admin if an opening needs to go live.</span>
+                <span>Only HR admins can change job openings. You can read an opening, but not save changes. Ask an HR admin if an opening needs to change or go live.</span>
               </div>
             )}
             <div className="toolbar">
@@ -126,7 +127,16 @@ export default function JobOpeningsPage({ onNew, onToast, highlightId }: Props) 
                         <span className={o.status === 'Published' ? 'badge badge-success' : 'badge'}>{o.status}</span>
                       </td>
                       <td>
-                        <div className="row-actions">
+                        <div className="row-actions cluster">
+                          <button
+                            className="btn btn-secondary btn-sm"
+                            type="button"
+                            aria-label={`${load.isHrAdmin ? 'Edit' : 'View'} ${o.title}`}
+                            onClick={() => onEdit(o)}
+                          >
+                            {load.isHrAdmin && <Icon name="sliders" />}
+                            {load.isHrAdmin ? 'Edit' : 'View'}
+                          </button>
                           {o.status === 'Draft' && (
                             <button
                               className="btn btn-secondary btn-sm"
