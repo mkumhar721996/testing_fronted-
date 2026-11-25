@@ -12,12 +12,29 @@ export interface JobOpening {
   vacancies: number
   status: OpeningStatus
   createdAt: string
+  location?: string | null
+  employmentType?: string | null
+  closingDate?: string | null
+  description?: string | null
+}
+
+export interface PublicOpening {
+  id: string
+  title: string
+  location: string | null
+  employmentType: string | null
+  closingDate: string | null
+  description: string | null
 }
 
 export interface NewOpening {
   title: string
   hiringManagerId: string
   vacancies: number
+  location?: string
+  employmentType?: string
+  closingDate?: string
+  description?: string
 }
 
 export class ApiError extends Error {
@@ -64,5 +81,8 @@ export const createOpening = (body: NewOpening) =>
   request<JobOpening>('/openings', { method: 'POST', body })
 export const closeOpening = (id: string) =>
   request<JobOpening>(`/openings/${encodeURIComponent(id)}/close`, { method: 'POST' })
+// Public reads: a visitor has no token registered, so none is sent.
+export const listOpenJobs = () => request<PublicOpening[]>('/public/openings')
+export const getOpenJob = (id: string) => request<PublicOpening>(`/public/openings/${encodeURIComponent(id)}`)
 export const publishOpening = (id: string) =>
   request<JobOpening>(`/openings/${encodeURIComponent(id)}/publish`, { method: 'POST' })

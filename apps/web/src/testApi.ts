@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import type { HiringManager, JobOpening } from './api/openings'
+import type { HiringManager, JobOpening, PublicOpening } from './api/openings'
 
 export const tomas: HiringManager = { id: 'm1', name: 'Tomas Eriksen' }
 export const amara: HiringManager = { id: 'm2', name: 'Amara Okafor' }
@@ -38,3 +38,13 @@ export function mockApi(routes: Record<string, (init: RequestInit) => Response |
 }
 
 export { json }
+
+export const publicOpening: PublicOpening = {
+  id: 'o1',
+  title: 'Senior backend engineer',
+  location: 'Berlin, Germany',
+  employmentType: 'Contract, 12 months',
+  closingDate: '2027-01-15',
+  description:
+    '## About the role\nJoin the finance team to build and maintain our rolling 18-month forecast.\n- Own the forecast model',
+}
