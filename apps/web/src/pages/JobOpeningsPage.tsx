@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getMe, listOpenings, type JobOpening } from '../api/openings'
+import { closeOpening, getMe, listOpenings, type JobOpening } from '../api/openings'
 import Icon from '../components/Icon'
 import PublishDialog from '../components/PublishDialog'
 
@@ -35,14 +35,28 @@ export default function JobOpeningsPage({ onNew, onToast, highlightId }: Props) 
 
   useEffect(refetch, [refetch])
 
-  function handlePublished(updated: JobOpening) {
+  function replaceOpening(updated: JobOpening) {
     setLoad((cur) =>
       cur.state === 'ready'
         ? { ...cur, openings: cur.openings.map((o) => (o.id === updated.id ? updated : o)) }
         : cur,
     )
+  }
+
+  function handlePublished(updated: JobOpening) {
+    replaceOpening(updated)
     setPublishing(null)
     onToast(`${updated.title} published. Applications can now be made against it.`)
+  }
+
+  async function handleClose(o: JobOpening) {
+    try {
+      const updated = await closeOpening(o.id)
+      replaceOpening(updated)
+      onToast(`${updated.title} closed. It no longer accepts applications.`)
+    } catch (err) {
+      onToast(err instanceof Error ? err.message : 'We could not close the opening. Try again.')
+    }
   }
 
   return (
@@ -136,6 +150,17 @@ export default function JobOpeningsPage({ onNew, onToast, highlightId }: Props) 
                               onClick={() => setPublishing(o)}
                             >
                               Publish
+                            </button>
+                          )}
+                          {o.status === 'Published' && (
+                            <button
+                              className="btn btn-secondary btn-sm"
+                              type="button"
+                              disabled={!load.isHrAdmin}
+                              aria-label={load.isHrAdmin ? `Close ${o.title}` : `Close ${o.title}, HR admins only`}
+                              onClick={() => handleClose(o)}
+                            >
+                              Close
                             </button>
                           )}
                         </div>

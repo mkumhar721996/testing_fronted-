@@ -1,4 +1,4 @@
-export type OpeningStatus = 'Draft' | 'Published'
+export type OpeningStatus = 'Draft' | 'Published' | 'Closed'
 
 export interface HiringManager {
   id: string
@@ -62,5 +62,7 @@ export const listHiringManagers = () => request<HiringManager[]>('/hiring-manage
 export const listOpenings = () => request<JobOpening[]>('/openings')
 export const createOpening = (body: NewOpening) =>
   request<JobOpening>('/openings', { method: 'POST', body })
+export const closeOpening = (id: string) =>
+  request<JobOpening>(`/openings/${encodeURIComponent(id)}/close`, { method: 'POST' })
 export const publishOpening = (id: string) =>
   request<JobOpening>(`/openings/${encodeURIComponent(id)}/publish`, { method: 'POST' })
