@@ -7,6 +7,7 @@ export const amara: HiringManager = { id: 'm2', name: 'Amara Okafor' }
 export const published: JobOpening = {
   id: 'o1',
   title: 'Senior backend engineer',
+  description: 'Backend role',
   hiringManager: tomas,
   vacancies: 2,
   status: 'Published',
@@ -16,6 +17,7 @@ export const published: JobOpening = {
 export const draft: JobOpening = {
   id: 'o2',
   title: 'Product designer',
+  description: 'Design the onboarding flow.',
   hiringManager: amara,
   vacancies: 1,
   status: 'Draft',

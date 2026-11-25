@@ -8,10 +8,24 @@ export interface HiringManager {
 export interface JobOpening {
   id: string
   title: string
+  description: string
   hiringManager: HiringManager
   vacancies: number
   status: OpeningStatus
   createdAt: string
+}
+
+export interface OpeningEdit {
+  title?: string
+  description?: string
+  vacancies?: number
+}
+
+export interface PortalOpening {
+  id: string
+  title: string
+  description: string
+  vacancies: number
 }
 
 export interface NewOpening {
@@ -64,3 +78,6 @@ export const createOpening = (body: NewOpening) =>
   request<JobOpening>('/openings', { method: 'POST', body })
 export const publishOpening = (id: string) =>
   request<JobOpening>(`/openings/${encodeURIComponent(id)}/publish`, { method: 'POST' })
+export const updateOpening = (id: string, body: OpeningEdit) =>
+  request<JobOpening>(`/openings/${encodeURIComponent(id)}`, { method: 'PATCH', body })
+export const listPortalOpenings = () => request<PortalOpening[]>('/portal/openings')

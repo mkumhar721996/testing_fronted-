@@ -23,3 +23,12 @@
 .form-actions { flex-wrap: wrap; }
 .form-actions .btn { max-width: 100%; white-space: normal; }
 .skel-row { height: var(--density-row-height); margin-bottom: var(--space-1); }
+textarea.input { height: auto; min-height: calc(var(--control-height-lg) * 2); padding-block: var(--space-1); resize: vertical; font-family: inherit; }
+.edit-layout { display: grid; gap: var(--section-gap); grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 1024px) { .edit-layout { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); } }
+.portal-preview { padding: var(--density-padding); display: grid; gap: var(--space-1); overflow-wrap: anywhere; }
+.portal-preview h3 { margin: 0; }
+.portal-frame { border: var(--border-width) dashed var(--color-border-strong); border-radius: var(--radius-card); padding: var(--density-padding); background: var(--color-surface-subtle); display: grid; gap: var(--space-1); }
+.portal-frame h4 { margin: 0; font-size: var(--font-size-xl); }
+.portal-frame p { margin: 0; color: var(--color-fg-muted); }
+.lock-note { display: flex; gap: var(--space-1); align-items: flex-start; }

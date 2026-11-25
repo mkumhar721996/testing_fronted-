@@ -11,7 +11,7 @@ const hrRoutes = (openings = [published, draft]) => ({
 })
 
 const renderPage = (props: Partial<React.ComponentProps<typeof JobOpeningsPage>> = {}) =>
-  render(<JobOpeningsPage onNew={() => {}} onToast={() => {}} {...props} />)
+  render(<JobOpeningsPage onNew={() => {}} onEdit={() => {}} onToast={() => {}} {...props} />)
 
 describe('JobOpeningsPage', () => {
   it('shows a loading state first', () => {
@@ -85,10 +85,23 @@ describe('JobOpeningsPage', () => {
   it('disables publishing for non-HR users', async () => {
     mockApi({ ...hrRoutes(), 'GET /me': () => json({ isHrAdmin: false }) })
     renderPage()
-    expect(await screen.findByText(/Only HR admins can create or publish job openings/)).toBeInTheDocument()
+    expect(await screen.findByText(/Only HR admins can change job openings/)).toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: 'Publish Product designer, HR admins only' }),
     ).toBeDisabled()
+  })
+
+  it('offers Edit to HR admins and View to everyone else (AC6)', async () => {
+    const onEdit = vi.fn()
+    mockApi(hrRoutes())
+    const { unmount } = renderPage({ onEdit })
+    fireEvent.click(await screen.findByRole('button', { name: 'Edit Product designer' }))
+    expect(onEdit).toHaveBeenCalledWith(draft)
+    unmount()
+    mockApi({ ...hrRoutes(), 'GET /me': () => json({ isHrAdmin: false }) })
+    renderPage({ onEdit })
+    expect(await screen.findByRole('button', { name: 'View Product designer' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /^Edit / })).not.toBeInTheDocument()
   })
 
   it('highlights a newly created opening', async () => {
