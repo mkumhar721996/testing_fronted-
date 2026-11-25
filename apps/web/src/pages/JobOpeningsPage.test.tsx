@@ -91,6 +91,31 @@ describe('JobOpeningsPage', () => {
     ).toBeDisabled()
   })
 
+  it('closes a published opening for HR admins', async () => {
+    const onToast = vi.fn()
+    const fetchMock = mockApi({
+      ...hrRoutes(),
+      'POST /openings/o1/close': () => json({ ...published, status: 'Closed' }),
+    })
+    renderPage({ onToast })
+    fireEvent.click(await screen.findByRole('button', { name: 'Close Senior backend engineer' }))
+    expect(await screen.findByText('Closed')).toBeInTheDocument()
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.stringContaining('/openings/o1/close'),
+      expect.objectContaining({ method: 'POST' }),
+    )
+    expect(screen.queryByRole('button', { name: 'Close Senior backend engineer' })).not.toBeInTheDocument()
+    expect(onToast).toHaveBeenCalledWith('Senior backend engineer closed. It no longer accepts applications.')
+  })
+
+  it('offers no enabled Close button to non-HR users', async () => {
+    mockApi({ ...hrRoutes(), 'GET /me': () => json({ isHrAdmin: false }) })
+    renderPage()
+    expect(
+      await screen.findByRole('button', { name: 'Close Senior backend engineer, HR admins only' }),
+    ).toBeDisabled()
+  })
+
   it('highlights a newly created opening', async () => {
     mockApi(hrRoutes([{ ...draft, hiringManager: amara }]))
     renderPage({ highlightId: 'o2' })
